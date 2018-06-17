@@ -32,24 +32,28 @@ do
     count="$(grep -c "$segName" "$PUB_LOG_FILE")"
     succCount1="$(grep $status1 /folder1/folder1/*$segName*/*.log"$prev_date"|wc -l)"
     succCount2="$(grep $status1 /folder1/folder1/*$segName*/*.log"$prev_date"|grep "|O|" |wc -l)"
-    succCount="$(($succCount1-$succCount2))"
+    #succCount="$(($succCount1-$succCount2))"
     errCount1="$(grep $status2 /folder1/folder1/*$segName*/*.log"$prev_date"|wc -l)"
     errCount2="$(grep $status2 /folder1/folder1/*$segName*/*.log"$prev_date"|grep "|O|" | wc -l)"
-    errCount="$(($errCount1-$errCount2))"
+    #errCount="$(($errCount1-$errCount2))"
     
-    echo $prev_date"|"$line"|"$count"|"$succCount"|"$succCount2"|"$errCount"|"$errCount2 >> /folder1/folder1/Report.$current_time
-
+    echo $prev_date"|"$line"|"$count"|"$(( $succCount1 - $succCount2 ))"|"$succCount2"|"$(( $errCount1 - $errCount2 ))"|"$errCount2 >> /folder1/folder1/Report.$current_time
     DEST_LOG_FILE=/folder1/folder1/*$segName*/*$segName*.log"$prev_date"
     chmod 755 $DEST_LOG_FILE
 
-if [[ "$segName" = "CBA" ]]; then
-		echo "1i\nFLOW_NAME|DATE|TIME|APP_NAME|FLOW_STATUS|STATUS|DURATION|MSG_ID|HOST|EXEC_NAME|SEG_NAME/ERROR REASON|FLAG|P1|P2 \n.\nwq" | ex -s $DEST_LOG_FILE
+#iF Each file has different headers
+if [[ "$segName" = "ABC" ]]&&[[ "$(($succCount1 + $errCount1))" -ne "0" ]]; then
+		    chmod 755 $DEST_LOG_FILE
+		echo "1i\n|H1|H2|HN \n.\nw!" | ex -s $DEST_LOG_FILE
+elif [[ "$segName" = "SDBONOTE" ]]&&[[ "$(($succCount1 + $errCount1))" -ne "0" ]]; then
+		    chmod 755 $DEST_LOG_FILE
+              echo "1i\n|H1|H2|HN|HK|HM \n.\nwq" | ex -s $DEST_LOG_FILE
 else
-		echo "1i\n|FLOW_NAME|DATE|TIME|APP_NAME|FLOW_STATUS|STATUS|DURATION|MSG_ID|HOST|EXEC_NAME|SEG_NAME/ERROR REASON|FLAG|P1|P2|P3|P4 \n.\nwq" | ex -s $DEST_LOG_FILE
+		echo "Nothing for Header"
 fi
 
 done < "$FileSegName"
 
     chmod 755 $PUB_LOG_FILE
-    echo "1i\nFLOW_NAME|DATE|TIME|APP_NAME|SEG_NAME \n.\nwq" | ex -s $PUB_LOG_FILE
+    echo "1i\nFLOW_NAME|DATE|TIME|APP_NAME|SEG_NAME \n.\nw!" | ex -s $PUB_LOG_FILE
 #End Script
