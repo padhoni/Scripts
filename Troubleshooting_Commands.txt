@@ -1,0 +1,109 @@
+# Author@PSD
+
+Daily AIX/ Unix Trouble shooting Commands:
+
+# Search a Pattern in file
+
+grep "Search Pattern" <File Path>
+zgrep "Search Pattern" <File Path>
+
+#Networking
+netstat -an| grep "port no"
+ping <ip address>
+telnet <host>
+trace <ip>
+ipconfig/all
+localhost
+
+# Process
+ps -ef|grep "pid"
+
+#Display Content of a Directory
+
+---ls commands displays all info in alphabetic order by file name---
+ls
+---ls -a including those begin with dot (.)
+ls -a
+ls -an
+---display date user ----
+ls -ltr
+ls -l
+
+# AIX useful commands
+
+topas (to check processor, ram etc.)
+lslpp
+nmon
+
+# Create dir, remove dir
+
+mkdir <dir name>
+rmdir <dir name>
+
+# Dir & File permission
+
+chmod 755 (up to 777)
+
+# cp, mv, scp
+
+cp -p <file name> <New File Name>
+mv <file name> <New Location>
+scp file.txt username@to_host:/remote/dir/
+
+# Compress, Uncompress
+
+compress <file name>
+uncompress/ unzip <file name>
+untar
+
+# touch, vi, cat, view
+
+touch <file name>
+
+# File editing
+
+vi <file name>
+
+# view file
+
+cat <file name>
+view <file name>
+(end of the file shift + g, line no shift + 100g)
+
+#tailing file data
+
+tail -f <file name>
+
+#OS level
+
+lsuser <user name>
+lsgroup <group name>
+oslevel
+df -k
+df -g (check resources with gigs)
+
+#sudo
+
+sudo su - <user name>
+
+#Other useful commands
+
+clear (clear screen)
+date (date)
+cal (calendar)
+who 
+cd (change dir)
+man
+pwd (present working directory)
+
+# Find file at directory
+
+find .<dir> -name file
+find [location] [exp what to find] [-options] [what to find]
+
+# Kill process, rm
+
+kill -9 <pid>
+rm <file>
+rm -r .
+rm dir
